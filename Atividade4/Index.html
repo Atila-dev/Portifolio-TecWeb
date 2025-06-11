@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Informativo da Escola - Tudo em Um</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 20px;
+        }
+
+        .painel {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passada {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .passada h2 {
+            flex-grow: 1;
+            margin-right: 100px;
+            text-align: left;
+        }
+
+        .passada button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .passada button:hover {
+            background-color: #45a049;
+        }
+
+        #espaco img {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Espaço entre os botões */
+            margin-bottom: 20px;
+        }
+
+        .botao-circular {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            width: 150px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .botao-circular:hover {
+            background-color: #007bb5;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        button:not(.passada button):not(.botao-circular) {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        button:not(.passada button):not(.botao-circular):hover {
+            background-color: #da190b;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="painel">
+    <h1>Painel Informativo</h1>
+
+    <div class="passada">
+        <h2 id="mensagem">Vamos começar</h2>
+        <button onclick="avancarMensagem()">
+            Start
+        </button>
+    </div>
+
+    <br>
+
+    <div id="espaco">
+        <img id="imagem" src="https://img.freepik.com/vetores-gratis/lampada-realistica-isolada-de-vetor-sobre-branco_1284-41931.jpg?semt=ais_hybrid&w=740" alt="Imagem informativa">
+    </div>
+    <br>
+    <div class="botoes">
+        <button class="botao-circular" onclick="avancarImagem()">&nbsp;Acender&nbsp;</button>
+    </div>
+
+    <br><br>
+
+    <p id="paragrafo">Clique no botão para apagar o texto.</p>
+    <button onclick="toggleParagrafo()">
+        Mostrar/Ocultar parágrafo
+    </button>
+
+    <br><br>
+
+    <button onclick="mudarTextoDoBotao(this)">
+        Clique para mudar este texto
+    </button>
+
+</div>
+
+<script>
+    const mensagens = [
+        "Faça a lampada acender",
+        "Vamos começar" 
+    ];
+    let mensagensIndex = 0; 
+
+    const imagens = [
+        "https://img.freepik.com/vetores-gratis/lampada-realistica-isolada-de-vetor-sobre-branco_1284-41931.jpg?semt=ais_hybrid&w=740", // Imagem 1
+        "https://png.pngtree.com/png-vector/20241124/ourmid/pngtree-illuminated-lightbulb-icon-representing-ideas-and-creativity-png-image_14551183.png",  // Imagem 2
+    ];
+    let imagensIndex = 0;
+    // --- Funções JavaScript ---
+
+    // Função para avançar a mensagem e atualizar o H2
+    function avancarMensagem() {
+        mensagensIndex = (mensagensIndex + 1) % mensagens.length;
+        const mensagemElement = document.getElementById('mensagem');
+        if (mensagemElement) {
+            mensagemElement.innerText = mensagens[mensagensIndex];
+        }
+    }   
+
+    // Função para avançar a imagem e atualizar a tag IMG
+    function avancarImagem() {
+        imagensIndex = (imagensIndex + 1) % imagens.length;
+        const imagemElement = document.getElementById('imagem');
+        if (imagemElement) {
+            imagemElement.src = imagens[imagensIndex];
+        }
+    }
+
+    // Função para mostrar/ocultar um parágrafo
+    function toggleParagrafo() {
+        const paragrafo = document.getElementById('paragrafo');
+        if (paragrafo) {
+            paragrafo.style.display = (paragrafo.style.display === 'none') ? 'block' : 'none';
+        }
+    }
+
+    // Função para mudar o texto de um botão que a chamou
+    function mudarTextoDoBotao(element) {
+        const textoAtual = element.innerText.trim();
+        if (textoAtual === 'Clique para mudar este texto') {
+            element.innerText = 'Texto alterado com sucesso!';
+        } else {
+            element.innerText = 'Clique para mudar este texto';
+        }
+    }
+</script>
+
+</body>
+</html>
